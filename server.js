@@ -391,21 +391,35 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Simple production route for now
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Portfolio API Server (Production)',
-    status: 'running',
-    version: '1.0.0',
-    endpoints: [
-      'GET /api/health',
-      'POST /api/leads',
-      'GET /api/leads',
-      'POST /api/ai/chat'
-    ],
-    note: 'Frontend will be added once API is stable'
+// Serve static files and React app in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from dist
+  app.use(express.static(path.join(process.cwd(), 'dist')));
+  
+  // React SPA fallback - serve index.html for non-API routes
+  app.get('/', (req, res) => {
+    const indexPath = path.join(process.cwd(), 'dist', 'index.html');
+    if (fs.existsSync(indexPath)) {
+      res.sendFile(indexPath);
+    } else {
+      res.json({ 
+        message: 'Portfolio API Server (Frontend building...)',
+        status: 'running',
+        endpoints: ['GET /api/health', 'POST /api/leads', 'GET /api/leads', 'POST /api/ai/chat'],
+        note: 'Frontend files not found, build in progress'
+      });
+    }
   });
-});
+} else {
+  // Development API info
+  app.get('/', (req, res) => {
+    res.json({ 
+      message: 'Portfolio API Server (Development)',
+      status: 'running',
+      endpoints: ['GET /api/health', 'POST /api/leads', 'GET /api/leads', 'POST /api/ai/chat']
+    });
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
