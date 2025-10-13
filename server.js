@@ -391,35 +391,37 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve static files and React app in production
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from dist
-  app.use(express.static(path.join(process.cwd(), 'dist')));
+// Serve static frontend when dist exists (production)
+const distPath = path.join(process.cwd(), 'dist');
+
+if (process.env.NODE_ENV === 'production' && fs.existsSync(distPath)) {
+  // Serve static files
+  app.use(express.static(distPath));
   
-  // React SPA fallback - serve index.html for non-API routes
-  app.get('/', (req, res) => {
-    const indexPath = path.join(process.cwd(), 'dist', 'index.html');
-    if (fs.existsSync(indexPath)) {
-      res.sendFile(indexPath);
-    } else {
-      res.json({ 
-        message: 'Portfolio API Server (Frontend building...)',
-        status: 'running',
-        endpoints: ['GET /api/health', 'POST /api/leads', 'GET /api/leads', 'POST /api/ai/chat'],
-        note: 'Frontend files not found, build in progress'
-      });
+  // Fallback for HTML5 history - avoid wildcard route that breaks Express v5+
+  app.use((req, res, next) => {
+    // Only send index.html for GET requests that accept HTML and are not API calls
+    if (req.method !== 'GET' || req.path.startsWith('/api')) {
+      return next();
     }
+    res.sendFile(path.join(distPath, 'index.html'));
   });
 } else {
-  // Development API info
+  // Development or no dist folder - show API info
   app.get('/', (req, res) => {
     res.json({ 
-      message: 'Portfolio API Server (Development)',
+      message: process.env.NODE_ENV === 'production' ? 'Portfolio API (Frontend building...)' : 'Portfolio API (Development)',
       status: 'running',
-      endpoints: ['GET /api/health', 'POST /api/leads', 'GET /api/leads', 'POST /api/ai/chat']
+      endpoints: ['GET /api/health', 'POST /api/leads', 'GET /api/leads', 'POST /api/ai/chat'],
+      note: process.env.NODE_ENV === 'production' ? 'Frontend build in progress' : 'Use npm run dev for frontend'
     });
   });
 }
+
+// 404 handler for API routes not found
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
