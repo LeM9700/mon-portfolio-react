@@ -11,7 +11,8 @@
     "build": "vite build",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "postinstall": "npx prisma generate"
+    "postinstall": "npx prisma generate",
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": ">=18.0.0"

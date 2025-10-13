@@ -371,6 +371,18 @@ app.post('/api/ai/chat', async (req, res) => {
 
 
 
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(process.cwd(), 'dist')));
+  
+  // Handle React Router (return index.html for non-API routes)
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+    }
+  });
+}
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ 
