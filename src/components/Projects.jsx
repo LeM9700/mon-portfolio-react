@@ -110,8 +110,8 @@ const ProjectCard = ({ project, index }) => {
 const Projects = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.4,
-    rootMargin: '-50px 0px',
+    threshold: 0.1,
+    rootMargin: '0px 0px',
   });
 
   return (

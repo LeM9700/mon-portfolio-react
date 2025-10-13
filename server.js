@@ -327,7 +327,10 @@ app.post('/api/ai/chat', async (req, res) => {
             console.log(`📋 Project: ${lead.summary}`);
             console.log(`💰 Budget: ${lead.budget} | ⏰ Deadline: ${lead.deadline}\n`);
             
-            return { leadId: lead.id };
+            return { 
+              leadId: lead.id,
+              message: `✅ Parfait ! J'ai bien transmis vos informations à Malik EL BOAZZATI. Il vous recontactera sous 24h pour discuter de votre projet.\n\nEn attendant, n'hésitez pas à me poser d'autres questions sur les technologies ou à réserver directement un appel : https://calendly.com/m-elboazzati-epmistes/30min`
+            };
           },
           
           bookCall: async () => {

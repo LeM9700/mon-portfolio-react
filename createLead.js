@@ -39,6 +39,9 @@ export async function createLead(payload) {
       } else if (field === 'summary' && !payload.message) {
         // summary -> message
         data.message = value;
+      } else if (field === 'platforms' || field === 'aiNeeds') {
+        // Convert array to comma-separated string for Prisma
+        data[field] = Array.isArray(value) ? value.join(', ') : value;
       } else if (field !== 'firstName' && field !== 'lastName' && field !== 'summary') {
         data[field] = value;
       }
