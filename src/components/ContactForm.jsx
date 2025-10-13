@@ -64,11 +64,18 @@ const ContactForm = ({ onClose }) => {
         notes: 'Lead généré via formulaire portfolio'
       };
 
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+      
+      // Add API secret if available in environment
+      if (import.meta.env.VITE_API_SECRET) {
+        headers['X-API-Secret'] = import.meta.env.VITE_API_SECRET;
+      }
+
       const response = await fetch('/api/leads', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify(leadData)
       });
 

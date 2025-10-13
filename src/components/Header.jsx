@@ -83,20 +83,20 @@ const Header = () => {
             </CTAButton>
           </div>
           
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 mb-16 sm:mb-8">
             🎯 MVP en 2-4 semaines • 📱 iOS + Android • 🤖 IA intégrée
           </p>
         </motion.div>
 
         {/* Navigation glassmorphism */}
-        <nav className="absolute bottom-8 left-0 right-0 flex justify-center">
+        <nav className="absolute bottom-4 sm:bottom-8 left-0 right-0 flex justify-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="bg-white/10 backdrop-blur-xl rounded-full px-8 py-4 border border-white/20 shadow-2xl shadow-black/20"
+            className="bg-white/10 backdrop-blur-xl rounded-full px-4 sm:px-8 py-3 sm:py-4 border border-white/20 shadow-2xl shadow-black/20"
           >
-            <div className="flex gap-6">
+            <div className="flex gap-3 sm:gap-6">
               {[
                 { name: 'À propos', id: 'about', icon: '👤' },
                 { name: 'Compétences', id: 'skills', icon: '⚡' },
@@ -111,7 +111,7 @@ const Header = () => {
                       element.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="text-gray-300 hover:text-white text-sm font-medium transition-all duration-300 relative group px-4 py-2 rounded-full"
+                  className="text-gray-300 hover:text-white text-xs sm:text-sm font-medium transition-all duration-300 relative group px-2 sm:px-4 py-2 rounded-full"
                   whileHover={{ 
                     scale: 1.05,
                     backgroundColor: "rgba(255, 255, 255, 0.1)"

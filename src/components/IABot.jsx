@@ -105,13 +105,13 @@ const IABot = ({ isOpen, setIsOpen }) => {
       if (result?.ok) {
         const confirm = {
           role: 'assistant',
-          content: '✅ Merci — j\'ai bien enregistré vos informations. Je vous envoie le récapitulatif par email.',
+          content: '✅ Parfait ! J\'ai bien transmis vos informations à Malik EL BOAZZATI. Il vous recontactera sous 24h pour discuter de votre projet.',
           timestamp: new Date().toISOString()
         };
 
         const followUp = {
           role: 'assistant',
-          content: "Pour aller plus loin, pouvez-vous préciser le délai souhaité et si vous ciblez iOS, Android ou les deux ?",
+          content: "En attendant, n'hésitez pas à me poser d'autres questions sur les technologies ou à réserver directement un appel : https://calendly.com/m-elboazzati-epmistes/30min",
           timestamp: new Date().toISOString()
         };
 

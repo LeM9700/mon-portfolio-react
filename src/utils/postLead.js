@@ -20,10 +20,14 @@ export async function postLead(payload) {
   const source = payload.source ?? 'chatbot';
   const url = import.meta.env.VITE_API_URL ?? '/api/leads';
   
-  // Prepare headers with API secret if available
-  const headers = { 'Content-Type': 'application/json' };
+  // Prepare headers with API secret
+  const headers = { 
+    'Content-Type': 'application/json'
+  };
+  
+  // Add API secret if available in environment
   if (import.meta.env.VITE_API_SECRET) {
-    headers['X-API-SECRET'] = import.meta.env.VITE_API_SECRET;
+    headers['X-API-Secret'] = import.meta.env.VITE_API_SECRET;
   }
   
   const body = { ...payload, variant, source };
