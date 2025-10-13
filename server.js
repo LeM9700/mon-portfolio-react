@@ -393,17 +393,17 @@ app.get('/api/health', (req, res) => {
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  // Serve built React app
+  // Serve built React app static files
   app.use(express.static(path.join(process.cwd(), 'dist')));
   
-  // Handle React Router - serve index.html for non-API routes
-  app.get('*', (req, res) => {
-    // Don't interfere with API routes
+  // Handle React Router - fallback to index.html for SPA routes
+  app.use((req, res, next) => {
+    // Skip API routes
     if (req.path.startsWith('/api')) {
-      return res.status(404).json({ error: 'API endpoint not found' });
+      return next();
     }
     
-    // Serve React app for all other routes
+    // For all other routes, serve index.html (React Router will handle)
     try {
       res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
     } catch (error) {
@@ -426,6 +426,11 @@ if (process.env.NODE_ENV === 'production') {
     });
   });
 }
+
+// 404 handler for API routes not found
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
