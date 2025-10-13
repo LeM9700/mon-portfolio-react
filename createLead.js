@@ -5,7 +5,7 @@ export async function createLead(payload) {
   const allowedFields = [
     'email', 'name', 'firstName', 'lastName', 'message', 'summary', 
     'platforms', 'features', 'budget', 'deadline', 'aiNeeds', 
-    'variant', 'source', 'notes'
+    'variant', 'source'
   ];
 
   // Validation de base

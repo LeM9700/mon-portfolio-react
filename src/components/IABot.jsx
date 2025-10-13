@@ -98,8 +98,7 @@ const IABot = ({ isOpen, setIsOpen }) => {
     try {
       const result = await postLead({
         ...leadData,
-        source: 'chatbot',
-        notes: 'Lead qualifié via chatbot IA'
+        source: 'chatbot'
       });
 
       if (result?.ok) {

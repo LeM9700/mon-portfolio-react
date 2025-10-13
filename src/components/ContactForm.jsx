@@ -60,8 +60,7 @@ const ContactForm = ({ onClose }) => {
         source: 'portfolio',
         ...formData,
         summary: formData.description,
-        aiNeeds: ['unknown'], // Will be discussed
-        notes: 'Lead généré via formulaire portfolio'
+        aiNeeds: ['unknown'] // Will be discussed
       };
 
       const headers = {
