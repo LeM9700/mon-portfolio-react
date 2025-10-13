@@ -391,45 +391,20 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  // Serve built React app static files
-  app.use(express.static(path.join(process.cwd(), 'dist')));
-  
-  // Handle React Router - fallback to index.html for SPA routes
-  app.use((req, res, next) => {
-    // Skip API routes
-    if (req.path.startsWith('/api')) {
-      return next();
-    }
-    
-    // For all other routes, serve index.html (React Router will handle)
-    try {
-      res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
-    } catch (error) {
-      console.error('Error serving index.html:', error);
-      res.status(500).json({ error: 'Unable to serve application' });
-    }
+// Simple production route for now
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Portfolio API Server (Production)',
+    status: 'running',
+    version: '1.0.0',
+    endpoints: [
+      'GET /api/health',
+      'POST /api/leads',
+      'GET /api/leads',
+      'POST /api/ai/chat'
+    ],
+    note: 'Frontend will be added once API is stable'
   });
-} else {
-  // Development: Show API info
-  app.get('/', (req, res) => {
-    res.json({ 
-      message: 'Portfolio API Server (Development)',
-      status: 'running',
-      endpoints: [
-        'GET /api/health',
-        'POST /api/leads',
-        'GET /api/leads',
-        'POST /api/ai/chat'
-      ]
-    });
-  });
-}
-
-// 404 handler for API routes not found
-app.use('/api/*', (req, res) => {
-  res.status(404).json({ error: 'API endpoint not found' });
 });
 
 app.listen(PORT, () => {
