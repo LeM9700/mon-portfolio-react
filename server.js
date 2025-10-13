@@ -99,14 +99,26 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+console.log('🚀 Starting server...');
+console.log('📊 Environment:', process.env.NODE_ENV);
+console.log('🔌 Port:', PORT);
+console.log('🔑 OpenAI Key present:', !!process.env.OPENAI_API_KEY);
+console.log('🔒 Server Secret present:', !!process.env.SERVER_SECRET);
+console.log('💾 Database URL present:', !!process.env.DATABASE_URL);
 
-// Verify OpenAI configuration
-if (!process.env.OPENAI_API_KEY) {
-  console.warn('⚠️  OPENAI_API_KEY not set. Using fallback responses.');
+// Initialize OpenAI
+let openai = null;
+try {
+  if (process.env.OPENAI_API_KEY) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    console.log('✅ OpenAI initialized successfully');
+  } else {
+    console.warn('⚠️  OpenAI API key not found - AI features disabled');
+  }
+} catch (error) {
+  console.error('❌ OpenAI initialization failed:', error.message);
 }
 
 // Middleware
@@ -369,21 +381,7 @@ app.post('/api/ai/chat', async (req, res) => {
   }
 });
 
-
-
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(process.cwd(), 'dist')));
-  
-  // Handle React Router (return index.html for non-API routes)
-  app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
-    }
-  });
-}
-
-// Health check
+// Health check (BEFORE catch-all route)
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -392,6 +390,21 @@ app.get('/api/health', (req, res) => {
     active_sessions: sessions.size
   });
 });
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(process.cwd(), 'dist')));
+  
+  // Handle React Router (return index.html for non-API routes)
+  // This MUST be the last route
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+    } else {
+      res.status(404).json({ error: 'API endpoint not found' });
+    }
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
