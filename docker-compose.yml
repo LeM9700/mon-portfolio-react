@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cesnoar
+      POSTGRES_PASSWORD: BaHopp72ap
+      POSTGRES_DB: mydb
+    ports:
+      - "5433:5432" # note: map sur 5433 local pour éviter conflit
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

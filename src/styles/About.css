@@ -1,0 +1,14 @@
+.about-section {
+  scroll-margin-top: 2rem;
+}
+
+.about-content {
+  line-height: 1.8;
+}
+
+.values-list li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+} 
