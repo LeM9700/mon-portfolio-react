@@ -391,32 +391,41 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Simple root route for testing
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Portfolio API Server',
-    status: 'running',
-    endpoints: [
-      'GET /api/health',
-      'POST /api/leads',
-      'GET /api/leads',
-      'POST /api/ai/chat'
-    ]
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve built React app
+  app.use(express.static(path.join(process.cwd(), 'dist')));
+  
+  // Handle React Router - serve index.html for non-API routes
+  app.get('*', (req, res) => {
+    // Don't interfere with API routes
+    if (req.path.startsWith('/api')) {
+      return res.status(404).json({ error: 'API endpoint not found' });
+    }
+    
+    // Serve React app for all other routes
+    try {
+      res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
+    } catch (error) {
+      console.error('Error serving index.html:', error);
+      res.status(500).json({ error: 'Unable to serve application' });
+    }
   });
-});
-
-// Serve static files in production (disabled for now)
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(process.cwd(), 'dist')));
-//   
-//   app.get('*', (req, res) => {
-//     if (!req.path.startsWith('/api')) {
-//       res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
-//     } else {
-//       res.status(404).json({ error: 'API endpoint not found' });
-//     }
-//   });
-// }
+} else {
+  // Development: Show API info
+  app.get('/', (req, res) => {
+    res.json({ 
+      message: 'Portfolio API Server (Development)',
+      status: 'running',
+      endpoints: [
+        'GET /api/health',
+        'POST /api/leads',
+        'GET /api/leads',
+        'POST /api/ai/chat'
+      ]
+    });
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
