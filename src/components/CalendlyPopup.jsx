@@ -21,7 +21,7 @@ const CalendlyPopup = ({ isOpen, onClose, url = "https://calendly.com/m-elboazza
       rootElement={document.getElementById('root')}
       text=""
       textColor="#ffffff"
-      color="#2563eb"
+      color="#3b82f6"
       onClose={onClose}
     />
   );

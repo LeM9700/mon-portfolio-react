@@ -133,12 +133,17 @@ const IABot = ({ isOpen, setIsOpen }) => {
     <>
       {!isOpen && (
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-8 right-8 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl"
+          className="fixed bottom-8 right-8 z-50 relative flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/30 px-5 py-3 hover:shadow-xl hover:shadow-blue-500/40 transition-shadow"
         >
-          🤖
+          <span aria-hidden="true" className="text-lg">🤖</span>
+          <span className="text-sm font-semibold">Parler à l&apos;IA</span>
+          <span className="absolute -top-1 -right-1 flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+          </span>
         </motion.button>
       )}
 

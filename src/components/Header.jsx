@@ -63,29 +63,47 @@ const Header = () => {
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
             <CTAButton
-              variant="primary"
+              variant="gradient"
               size="xl"
               onClick={() => setIsCalendlyOpen(true)}
               className="min-w-[280px]"
             >
-              📅 Réserver un appel (30 min)
+              <span aria-hidden="true">📅</span> Réserver un appel (30 min)
             </CTAButton>
-            
+
             <CTAButton
-              variant="secondary"
-              size="xl"
+              variant="ghost"
+              size="lg"
               onClick={() => setIsContactFormOpen(true)}
-              className="min-w-[280px] text-white border-white hover:bg-white hover:text-gray-800"
+              className="min-w-[220px]"
             >
-              ✉️ Décrire mon projet
+              <span aria-hidden="true">✉️</span> Décrire mon projet
             </CTAButton>
           </div>
-          
-          <p className="text-sm text-gray-400 mb-16 sm:mb-8">
+
+          <p className="text-sm text-gray-400 mb-8">
             🎯 MVP en 2-4 semaines • 📱 iOS + Android • 🤖 IA intégrée
           </p>
+
+          {/* Scroll indicator */}
+          <motion.div
+            className="flex flex-col items-center gap-1 text-white/40 cursor-default select-none"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 1.6, duration: 0.8 }}
+          >
+            <span className="text-[10px] tracking-widest uppercase">Découvrir</span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Navigation glassmorphism */}
