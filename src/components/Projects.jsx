@@ -22,7 +22,7 @@ const projects = [
     icon: '📊',
     tags: ['React', 'Node.js', 'MongoDB', 'Anthropic', 'TypeScript'],
     link: '#',
-    metrics: '40% réduction temps de traitement'
+    metrics: 'Génération de rapports : de 2h à 7 minutes'
   },
   {
     title: 'Marketplace Flutter + IA Matching',
@@ -32,7 +32,7 @@ const projects = [
     icon: '🏪',
     tags: ['Flutter', 'FastAPI', 'Redis', 'TensorFlow', 'WebSocket'],
     link: '#',
-    metrics: 'Architecture pour 10k+ utilisateurs'
+    metrics: 'Testé à charge : 10k utilisateurs simultanés, 0 downtime'
   },
 ];
 
@@ -114,7 +114,7 @@ const ProjectCard = ({ project, index }) => {
             Discuter du projet
           </motion.button>
           
-          <span className="text-xs text-gray-500">Étude de cas disponible</span>
+          <span className="text-xs text-gray-400 dark:text-gray-500">Sur demande — détails par email</span>
         </div>
       </div>
     </motion.div>

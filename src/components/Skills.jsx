@@ -16,7 +16,7 @@ const skills = [
     category: 'Développement Mobile',
     skills: [
       { name: 'Flutter', level: 85, color: 'bg-blue-500' },
-      { name: 'React Native', level: 80, color: 'bg-cyan-500' },
+      { name: 'Riverpod / BLoC', level: 85, color: 'bg-cyan-500' },
       { name: 'Dart', level: 85, color: 'bg-indigo-500' },
     ],
   },
@@ -86,7 +86,7 @@ const Skills = () => {
           transition={{ duration: 1.2, ease: [0.25, 0.25, 0, 1] }}
         >
           <h2 className="mb-12 text-center text-4xl font-bold text-gray-900 dark:text-gray-100">
-            Mes Compétences
+            La stack qui livre vos projets
           </h2>
           <div className="grid gap-12 md:grid-cols-3">
             {skills.map((category, index) => (

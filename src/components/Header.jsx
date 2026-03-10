@@ -80,13 +80,13 @@ const Header = () => {
           className="max-w-4xl"
         >
           <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl">
-            Je conçois vos applications{' '}
-            <span className="text-blue-400">mobiles iOS/Android</span>{' '}
-            en <span className="text-green-400">Flutter</span>
+            De l&apos;idée à l&apos;app{' '}
+            <span className="text-blue-400">iOS/Android</span>{' '}
+            en <span className="text-green-400">4 semaines</span>
           </h1>
           <p className="mb-8 text-xl text-gray-300 md:text-2xl max-w-3xl mx-auto">
-            Avec backend <span className="text-blue-300">FastAPI/Node</span> et intégration{' '}
-            <span className="text-orange-400">IA</span> pour des MVP rapides et scalables
+            Développeur <span className="text-blue-300">Flutter senior</span> — je prends en charge l&apos;intégralité de votre stack :{' '}
+            mobile, backend et <span className="text-orange-400">IA</span>
           </p>
           
           {/* CTA Buttons */}

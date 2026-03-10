@@ -70,7 +70,7 @@ function App() {
                 <div className="flex items-center gap-1">
                   {[
                     { name: 'À propos', id: 'about', icon: '👤' },
-                    { name: 'Skills', id: 'skills', icon: '⚡' },
+                    { name: 'Compétences', id: 'skills', icon: '⚡' },
                     { name: 'Projets', id: 'projects', icon: '🚀' },
                     { name: 'IA', id: 'ia-section', icon: '🤖' }
                   ].map((item) => (

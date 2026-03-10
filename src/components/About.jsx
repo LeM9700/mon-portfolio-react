@@ -42,7 +42,16 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="absolute -bottom-4 -left-4 rounded-lg bg-blue-500 p-4 text-white shadow-lg"
             >
-              <p className="text-sm font-semibold">+5 ans d'expérience</p>
+              <p className="text-sm font-semibold">+5 ans d&apos;expérience</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="absolute -top-4 -right-4 rounded-lg bg-green-500 p-3 text-white shadow-lg flex items-center gap-2"
+            >
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse inline-block"></span>
+              <p className="text-sm font-semibold">Disponible — mars 2026</p>
             </motion.div>
           </div>
 
@@ -54,20 +63,22 @@ const About = () => {
             className="flex flex-col justify-center"
           >
             <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-gray-100">
-              Mon expertise au service de vos MVP
+              Votre idée mérite un dev qui livre — pas qui promet
             </h2>
             <p className="mb-4 text-lg text-gray-600 dark:text-gray-300">
-              <strong>Développeur Flutter & Backend</strong> spécialisé dans la création d'applications 
-              mobiles iOS/Android performantes avec des APIs robustes et des intégrations IA intelligentes.
+              <strong>Développeur Flutter senior</strong> avec +5 ans d&apos;expérience sur des projets
+              iOS/Android livrés en production — e-commerce, SaaS, marketplaces. Pas de théorie : du code
+              qui tourne chez de vrais utilisateurs.
             </p>
             <p className="mb-4 text-lg text-gray-600 dark:text-gray-300">
-              Je transforme vos idées en <strong>MVP fonctionnels en 2-4 semaines</strong>, 
-              avec une architecture évolutive qui grandit avec votre business.
+              Je prends en charge votre projet de A à Z : <strong>app mobile Flutter, API backend, intégration IA</strong>.
+              Résultat en <strong>2 à 4 semaines</strong>, architecture pensée pour grandir avec vous.
             </p>
             <p className="mb-6 text-lg text-gray-600 dark:text-gray-300">
-              <span className="text-blue-600 dark:text-blue-400 font-semibold">Ma valeur ajoutée :</span> Une approche 
-              complète du mobile au backend, enrichie par l'IA pour créer des expériences utilisateur 
-              exceptionnelles et automatiser vos processus métier.
+              Là où d&apos;autres sous-traitent le backend ou l&apos;IA, je maîtrise{' '}
+              <span className="text-blue-600 dark:text-blue-400 font-semibold">tout le stack</span> — de la
+              première ligne Flutter jusqu&apos;au serveur en production. Moins d&apos;interlocuteurs,
+              plus de cohérence, un MVP qui tient la route dès le jour 1.
             </p>
             
             <div className="mb-6">

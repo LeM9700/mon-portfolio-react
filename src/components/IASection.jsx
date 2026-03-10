@@ -12,21 +12,21 @@ const IASection = () => {
     {
       icon: '📱',
       title: 'MVP Mobile Flutter',
-      description: 'Applications iOS/Android natives avec une seule codebase. Interface fluide, performances optimales.',
+      description: 'Une seule équipe, une seule codebase — votre app tourne sur iOS et Android sans compromis sur la fluidité ni les performances.',
       deliverable: 'Livraison en 2-4 semaines',
       technologies: ['Flutter', 'Dart', 'iOS', 'Android']
     },
     {
       icon: '⚡',
       title: 'Backend API Robuste',
-      description: 'APIs FastAPI ou Node.js scalables, authentification, base de données optimisée.',
+      description: 'Votre app ne tombera pas en rade si elle passe à la TV. Sécurisée, scalable, prête pour 10 000 utilisateurs dès la V1.',
       deliverable: 'Architecture prête pour 10k+ utilisateurs',
       technologies: ['FastAPI', 'Node.js', 'PostgreSQL', 'Docker']
     },
     {
       icon: '🤖',
       title: 'Intégration IA Intelligente',
-      description: 'Chatbots, automatisations, analyse de données. IA utile qui apporte de la valeur.',
+      description: 'Pas de l\'IA gadget — de l\'IA qui fait gagner du temps à vos utilisateurs : recommandations, automatisations, assistants conversationnels.',
       deliverable: 'ROI mesurable dès la première semaine',
       technologies: ['OpenAI', 'Anthropic', 'LangChain', 'RAG']
     }
@@ -44,7 +44,7 @@ const IASection = () => {
           className="text-center mb-16"
         >
           <h2 className="mb-6 text-4xl md:text-5xl font-bold text-white">
-            Mon offre complète
+            Votre MVP de A à Z
           </h2>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
             Je transforme vos idées en MVP fonctionnels avec une approche 360° : 
@@ -113,7 +113,7 @@ const IASection = () => {
             {[
               { step: '1', title: 'Analyse', desc: 'Audit de vos besoins et définition du scope' },
               { step: '2', title: 'Conception', desc: 'Architecture technique et maquettes UI/UX' },
-              { step: '3', title: 'Développement', desc: 'Code iteratif avec démos hebdomadaires' },
+              { step: '3', title: 'Développement', desc: 'Code itératif avec démos hebdomadaires' },
               { step: '4', title: 'Lancement', desc: 'Déploiement et formation utilisateurs' }
             ].map((phase, index) => (
               <div key={phase.step} className="relative">
@@ -140,7 +140,7 @@ const IASection = () => {
           className="text-center"
         >
           <h3 className="text-2xl font-bold text-white mb-4">
-            Prêt à transformer votre idée en reality ?
+            Prêt à transformer votre idée en réalité ?
           </h3>
           <p className="text-gray-200 mb-8 max-w-2xl mx-auto">
             Discutons de votre projet lors d'un appel de 30 minutes. 

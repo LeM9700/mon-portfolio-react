@@ -165,8 +165,8 @@ const IABot = ({ isOpen, setIsOpen }) => {
             <div className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-xl">
               <div className="flex items-center gap-3">
                 <div>
-                  <h3 className="font-semibold">DevNomad Assistant</h3>
-                  <p className="text-xs opacity-90">Spécialiste Flutter + IA</p>
+                  <h3 className="font-semibold">Malik AI</h3>
+                  <p className="text-xs opacity-90">Assistant de Malik — Flutter & IA</p>
                 </div>
               </div>
               
