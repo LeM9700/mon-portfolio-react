@@ -30,6 +30,13 @@ const skills = [
   },
 ];
 
+const getLevelLabel = (level) => {
+  if (level >= 90) return { label: 'Expert', color: 'text-blue-600 dark:text-blue-400' };
+  if (level >= 80) return { label: 'Avancé', color: 'text-purple-600 dark:text-purple-400' };
+  if (level >= 70) return { label: 'Maîtrisé', color: 'text-emerald-600 dark:text-emerald-400' };
+  return { label: 'En progression', color: 'text-orange-500 dark:text-orange-400' };
+};
+
 const SkillBar = ({ skill, delay = 0 }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -37,19 +44,21 @@ const SkillBar = ({ skill, delay = 0 }) => {
     rootMargin: '0px 0px -20px 0px',
   });
 
+  const { label, color } = getLevelLabel(skill.level);
+
   return (
     <div className="mb-4">
-      <div className="mb-2 flex justify-between">
+      <div className="mb-2 flex justify-between items-center">
         <span className="font-medium text-gray-700 dark:text-gray-300">{skill.name}</span>
-        <span className="text-gray-500 dark:text-gray-400">{skill.level}%</span>
+        <span className={`text-xs font-semibold ${color}`}>{label}</span>
       </div>
       <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
         <motion.div
           ref={ref}
           initial={{ width: 0 }}
           animate={inView ? { width: `${skill.level}%` } : {}}
-          transition={{ 
-            duration: 1.5, 
+          transition={{
+            duration: 1.5,
             delay: delay * 0.1,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}

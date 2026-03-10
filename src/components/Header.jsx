@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import CTAButton from './CTAButton';
@@ -10,7 +10,34 @@ const Header = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  
+
+  // P8 — Focus trap + Escape + backdrop close
+  useEffect(() => {
+    if (!isContactFormOpen) return;
+
+    const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const modal = document.getElementById('contact-modal');
+    if (!modal) return;
+
+    const els = Array.from(modal.querySelectorAll(FOCUSABLE));
+    const first = els[0];
+    const last = els[els.length - 1];
+    first?.focus();
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') { setIsContactFormOpen(false); return; }
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    };
+
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isContactFormOpen]);
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -159,13 +186,23 @@ const Header = () => {
 
       {/* Contact Form Modal */}
       {isContactFormOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+          onClick={(e) => { if (e.target === e.currentTarget) setIsContactFormOpen(false); }}
+        >
+          <div
+            id="contact-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-modal-title"
+            className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          >
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-xl font-bold">Décrivez votre projet</h2>
+              <h2 id="contact-modal-title" className="text-xl font-bold">Décrivez votre projet</h2>
               <button
                 onClick={() => setIsContactFormOpen(false)}
                 className="text-gray-500 hover:text-gray-700 text-2xl"
+                aria-label="Fermer"
               >
                 ×
               </button>

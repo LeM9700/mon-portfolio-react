@@ -8,7 +8,8 @@ const projects = [
     title: 'App E-commerce Flutter + FastAPI',
     description:
       'Application mobile iOS/Android avec backend FastAPI et IA de recommandation. Paiement Stripe intégré, gestion stock temps réel, chatbot support client.',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop',
+    gradient: 'from-blue-600 via-blue-500 to-cyan-400',
+    icon: '🛒',
     tags: ['Flutter', 'FastAPI', 'PostgreSQL', 'OpenAI', 'Stripe'],
     link: '#',
     metrics: 'MVP livré en 3 semaines'
@@ -17,7 +18,8 @@ const projects = [
     title: 'Dashboard SaaS + Automatisation IA',
     description:
       'Plateforme SaaS multi-tenant avec API Node.js, automatisations IA pour génération de rapports et chatbot qualifiant intégré.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    gradient: 'from-violet-600 via-purple-500 to-indigo-400',
+    icon: '📊',
     tags: ['React', 'Node.js', 'MongoDB', 'Anthropic', 'TypeScript'],
     link: '#',
     metrics: '40% réduction temps de traitement'
@@ -26,7 +28,8 @@ const projects = [
     title: 'Marketplace Flutter + IA Matching',
     description:
       'Marketplace mobile avec algorithme IA de matching intelligent, messagerie temps réel, et système de notation. Backend scalable avec FastAPI.',
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop',
+    gradient: 'from-emerald-600 via-teal-500 to-cyan-400',
+    icon: '🏪',
     tags: ['Flutter', 'FastAPI', 'Redis', 'TensorFlow', 'WebSocket'],
     link: '#',
     metrics: 'Architecture pour 10k+ utilisateurs'
@@ -56,14 +59,25 @@ const ProjectCard = ({ project, index }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative h-64 overflow-hidden">
-        <img
-          src={project.image}
-          alt={`Capture d'écran du projet ${project.title} développé par Malik El Boazzati`}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-          loading="lazy"
-        />
+        <div className={`h-full w-full bg-gradient-to-br ${project.gradient} flex flex-col items-center justify-center relative transition-transform duration-300 group-hover:scale-105`}>
+          {/* Dot pattern overlay */}
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '22px 22px' }}
+          />
+          <div className="relative z-10 flex flex-col items-center gap-3 px-4">
+            <span className="text-5xl" aria-hidden="true">{project.icon}</span>
+            <div className="flex flex-wrap justify-center gap-1.5">
+              {project.tags.slice(0, 3).map((tag) => (
+                <span key={tag} className="text-xs font-medium text-white/90 bg-white/20 backdrop-blur-sm rounded-full px-2.5 py-0.5">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
         <div
-          className={`absolute inset-0 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 ${
+          className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
         />
