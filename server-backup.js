@@ -397,6 +397,6 @@ app.get('/api/health', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 API Server running on http://localhost:${PORT}`);
-  console.log(`📊 Leads endpoint: http://localhost:${PORT}/api/leads?secret=malik_admin_2024`);
+  console.log(`📊 Leads endpoint: http://localhost:${PORT}/api/leads?secret=${process.env.API_SECRET}`);
   console.log(`❤️  Health check: http://localhost:${PORT}/api/health`);
 });

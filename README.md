@@ -99,7 +99,7 @@ VITE_API_URL=http://localhost:3001
 ### Consultation des leads
 ```bash
 # API endpoint (dev)
-GET http://localhost:3001/api/leads?secret=malik_admin_2024
+GET http://localhost:3001/api/leads?secret=VOTRE_API_SECRET
 
 # Health check
 GET http://localhost:3001/api/health
