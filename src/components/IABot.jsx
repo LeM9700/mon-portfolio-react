@@ -27,11 +27,18 @@ const IABot = ({ isOpen, setIsOpen }) => {
     scrollToBottom();
   }, [messages, currentStreamingMessage]);
 
+  const QUICK_REPLIES = [
+    "💡 J'ai une idée d'app",
+    "📱 Je cherche un devis",
+    "🤖 Intégrer de l'IA",
+    "👀 Voir vos réalisations",
+  ];
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       const welcomeMessage = {
         role: 'assistant',
-        content: '👋 Bienvenue ! Je suis DevNomad Assistant, votre interlocuteur pour discuter de vos projets digitaux avec Malik.',
+        content: "👋 Bonjour ! Je suis l'assistant de Malik, développeur Flutter & IA.\n\nVous avez un projet d'app mobile ou web ? Décrivez-le moi — je peux vous donner une première estimation en quelques minutes.",
         timestamp: new Date().toISOString()
       };
       setMessages([welcomeMessage]);
@@ -192,6 +199,47 @@ const IABot = ({ isOpen, setIsOpen }) => {
                   </div>
                 </motion.div>
               ))}
+
+              {/* I5 — Quick replies après le message d'accueil */}
+              {messages.length === 1 && !isLoading && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="mb-4 flex flex-wrap gap-2"
+                >
+                  {QUICK_REPLIES.map((reply) => (
+                    <button
+                      key={reply}
+                      onClick={() => handleSendMessage(reply)}
+                      className="text-xs bg-blue-50 text-blue-700 border border-blue-200 rounded-full px-3 py-1.5 hover:bg-blue-100 transition-colors"
+                    >
+                      {reply}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+
+              {/* I3 — Typing indicator avant le premier token */}
+              {isLoading && !currentStreamingMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-4 flex justify-start"
+                >
+                  <div className="rounded-lg p-3 bg-white border border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-1.5 px-1">
+                      {[0, 150, 300].map((delay) => (
+                        <span
+                          key={delay}
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: `${delay}ms` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
 
               {currentStreamingMessage && (
                 <motion.div
