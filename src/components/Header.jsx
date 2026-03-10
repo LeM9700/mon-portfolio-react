@@ -71,7 +71,7 @@ const Header = () => {
       </div>
 
       {/* Contenu principal */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 text-center">
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 text-center pb-28 sm:pb-32">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ const Header = () => {
           </div>
 
           <p className="text-sm text-gray-400 mb-8">
-            🎯 MVP en 2-4 semaines • 📱 iOS + Android • 🤖 IA intégrée
+            <span aria-hidden="true">🎯</span> MVP en 2-4 semaines • <span aria-hidden="true">📱</span> iOS + Android • <span aria-hidden="true">🤖</span> IA intégrée
           </p>
 
           {/* Scroll indicator */}

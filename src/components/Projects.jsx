@@ -91,7 +91,7 @@ const ProjectCard = ({ project, index }) => {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-blue-100 text-blue-800 px-3 py-1 text-xs font-medium"
+              className="rounded-full bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/20 px-3 py-1 text-xs font-medium"
             >
               {tag}
             </span>
@@ -100,7 +100,7 @@ const ProjectCard = ({ project, index }) => {
         
         {project.metrics && (
           <div className="mb-4 p-2 bg-green-50 rounded-lg">
-            <p className="text-xs font-semibold text-green-800">🎯 {project.metrics}</p>
+            <p className="text-xs font-semibold text-green-800"><span aria-hidden="true">🎯</span> {project.metrics}</p>
           </div>
         )}
         
