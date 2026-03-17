@@ -12,4 +12,4 @@ cmds = ["npm install", "npx prisma generate", "npm run build"]
 cmds = ["echo 'Migrations deferred to startup'"]
 
 [start]
-cmd = "npx prisma migrate deploy; node server.js"
+cmd = "node server.js"

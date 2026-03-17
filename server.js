@@ -407,7 +407,7 @@ app.get('/api/health', (req, res) => {
 // Serve static frontend when dist exists (production)
 const distPath = path.join(process.cwd(), 'dist');
 
-if (process.env.NODE_ENV === 'production' && fs.existsSync(distPath)) {
+if (fs.existsSync(distPath)) {
   // Serve static files
   app.use(express.static(distPath));
   
