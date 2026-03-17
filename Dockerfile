@@ -17,4 +17,4 @@ RUN npm run build
 EXPOSE 3001
 
 # Migrations run at startup (database only available at runtime, not build time)
-CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy; node server.js"]
