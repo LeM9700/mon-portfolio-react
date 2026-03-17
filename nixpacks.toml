@@ -5,5 +5,11 @@
 [phases.build]
 cmds = ["npm install", "npx prisma generate", "npm run build"]
 
+# Explicitly disable the release phase — Nixpacks auto-adds
+# `npx prisma migrate deploy` here for Prisma projects,
+# but postgres.railway.internal is only reachable at runtime.
+[phases.release]
+cmds = []
+
 [start]
 cmd = "npx prisma migrate deploy && node server.js"
