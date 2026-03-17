@@ -25,6 +25,18 @@ const CTAButton = ({
       focus:ring-blue-500
       border-2 border-transparent
     `,
+    gradient: `
+      bg-gradient-to-r from-blue-500 to-purple-600 text-white
+      shadow-lg shadow-blue-500/30
+      hover:from-blue-600 hover:to-purple-700 hover:shadow-xl hover:shadow-blue-500/40
+      focus:ring-blue-500
+      border-2 border-transparent
+    `,
+    ghost: `
+      bg-white/10 backdrop-blur-sm text-white border border-white/30
+      hover:bg-white/20 hover:border-white/60 hover:shadow-lg
+      focus:ring-white/50
+    `,
     secondary: `
       bg-transparent text-blue-600 border-2 border-blue-600
       hover:bg-blue-600 hover:text-white hover:shadow-lg

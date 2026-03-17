@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import CTAButton from './CTAButton';
@@ -10,7 +10,34 @@ const Header = () => {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-  
+
+  // P8 — Focus trap + Escape + backdrop close
+  useEffect(() => {
+    if (!isContactFormOpen) return;
+
+    const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const modal = document.getElementById('contact-modal');
+    if (!modal) return;
+
+    const els = Array.from(modal.querySelectorAll(FOCUSABLE));
+    const first = els[0];
+    const last = els[els.length - 1];
+    first?.focus();
+
+    const onKey = (e) => {
+      if (e.key === 'Escape') { setIsContactFormOpen(false); return; }
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    };
+
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isContactFormOpen]);
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -44,7 +71,7 @@ const Header = () => {
       </div>
 
       {/* Contenu principal */}
-      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 text-center">
+      <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-4 text-center pb-28 sm:pb-32">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
@@ -53,39 +80,57 @@ const Header = () => {
           className="max-w-4xl"
         >
           <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl">
-            Je conçois vos applications{' '}
-            <span className="text-blue-400">mobiles iOS/Android</span>{' '}
-            en <span className="text-green-400">Flutter</span>
+            De l&apos;idée à l&apos;app{' '}
+            <span className="text-blue-400">iOS/Android</span>{' '}
+            en <span className="text-green-400">4 semaines</span>
           </h1>
           <p className="mb-8 text-xl text-gray-300 md:text-2xl max-w-3xl mx-auto">
-            Avec backend <span className="text-blue-300">FastAPI/Node</span> et intégration{' '}
-            <span className="text-orange-400">IA</span> pour des MVP rapides et scalables
+            Développeur <span className="text-blue-300">Flutter senior</span> — je prends en charge l&apos;intégralité de votre stack :{' '}
+            mobile, backend et <span className="text-orange-400">IA</span>
           </p>
           
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center mb-6">
             <CTAButton
-              variant="primary"
+              variant="gradient"
               size="xl"
               onClick={() => setIsCalendlyOpen(true)}
               className="min-w-[280px]"
             >
-              📅 Réserver un appel (30 min)
+              <span aria-hidden="true">📅</span> Réserver un appel (30 min)
             </CTAButton>
-            
+
             <CTAButton
-              variant="secondary"
-              size="xl"
+              variant="ghost"
+              size="lg"
               onClick={() => setIsContactFormOpen(true)}
-              className="min-w-[280px] text-white border-white hover:bg-white hover:text-gray-800"
+              className="min-w-[220px]"
             >
-              ✉️ Décrire mon projet
+              <span aria-hidden="true">✉️</span> Décrire mon projet
             </CTAButton>
           </div>
-          
-          <p className="text-sm text-gray-400 mb-16 sm:mb-8">
-            🎯 MVP en 2-4 semaines • 📱 iOS + Android • 🤖 IA intégrée
+
+          <p className="text-sm text-gray-400 mb-8">
+            <span aria-hidden="true">🎯</span> MVP en 2-4 semaines • <span aria-hidden="true">📱</span> iOS + Android • <span aria-hidden="true">🤖</span> IA intégrée
           </p>
+
+          {/* Scroll indicator */}
+          <motion.div
+            className="flex flex-col items-center gap-1 text-white/40 cursor-default select-none"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 1.6, duration: 0.8 }}
+          >
+            <span className="text-[10px] tracking-widest uppercase">Découvrir</span>
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Navigation glassmorphism */}
@@ -141,13 +186,23 @@ const Header = () => {
 
       {/* Contact Form Modal */}
       {isContactFormOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+          onClick={(e) => { if (e.target === e.currentTarget) setIsContactFormOpen(false); }}
+        >
+          <div
+            id="contact-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="contact-modal-title"
+            className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          >
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-xl font-bold">Décrivez votre projet</h2>
+              <h2 id="contact-modal-title" className="text-xl font-bold">Décrivez votre projet</h2>
               <button
                 onClick={() => setIsContactFormOpen(false)}
                 className="text-gray-500 hover:text-gray-700 text-2xl"
+                aria-label="Fermer"
               >
                 ×
               </button>

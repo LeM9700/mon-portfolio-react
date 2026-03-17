@@ -12,21 +12,21 @@ const IASection = () => {
     {
       icon: '📱',
       title: 'MVP Mobile Flutter',
-      description: 'Applications iOS/Android natives avec une seule codebase. Interface fluide, performances optimales.',
+      description: 'Une seule équipe, une seule codebase — votre app tourne sur iOS et Android sans compromis sur la fluidité ni les performances.',
       deliverable: 'Livraison en 2-4 semaines',
       technologies: ['Flutter', 'Dart', 'iOS', 'Android']
     },
     {
       icon: '⚡',
       title: 'Backend API Robuste',
-      description: 'APIs FastAPI ou Node.js scalables, authentification, base de données optimisée.',
+      description: 'Votre app ne tombera pas en rade si elle passe à la TV. Sécurisée, scalable, prête pour 10 000 utilisateurs dès la V1.',
       deliverable: 'Architecture prête pour 10k+ utilisateurs',
       technologies: ['FastAPI', 'Node.js', 'PostgreSQL', 'Docker']
     },
     {
       icon: '🤖',
       title: 'Intégration IA Intelligente',
-      description: 'Chatbots, automatisations, analyse de données. IA utile qui apporte de la valeur.',
+      description: 'Pas de l\'IA gadget — de l\'IA qui fait gagner du temps à vos utilisateurs : recommandations, automatisations, assistants conversationnels.',
       deliverable: 'ROI mesurable dès la première semaine',
       technologies: ['OpenAI', 'Anthropic', 'LangChain', 'RAG']
     }
@@ -44,13 +44,13 @@ const IASection = () => {
           className="text-center mb-16"
         >
           <h2 className="mb-6 text-4xl md:text-5xl font-bold text-white">
-            Mon offre complète
+            Votre MVP de A à Z
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
             Je transforme vos idées en MVP fonctionnels avec une approche 360° : 
             <span className="text-blue-400 font-semibold"> mobile + backend + IA</span>
           </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-300">
             <span className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-400 rounded-full"></div>
               Accompagnement complet
@@ -76,9 +76,9 @@ const IASection = () => {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className="relative p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group"
             >
-              <div className="text-4xl mb-4">{service.icon}</div>
+              <div className="text-4xl mb-4" aria-hidden="true">{service.icon}</div>
               <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-              <p className="text-gray-300 mb-4 leading-relaxed">{service.description}</p>
+              <p className="text-gray-200 mb-4 leading-relaxed">{service.description}</p>
               
               <div className="mb-4 p-3 bg-green-500/10 rounded-lg border border-green-500/20">
                 <p className="text-green-400 text-sm font-semibold">✓ {service.deliverable}</p>
@@ -113,7 +113,7 @@ const IASection = () => {
             {[
               { step: '1', title: 'Analyse', desc: 'Audit de vos besoins et définition du scope' },
               { step: '2', title: 'Conception', desc: 'Architecture technique et maquettes UI/UX' },
-              { step: '3', title: 'Développement', desc: 'Code iteratif avec démos hebdomadaires' },
+              { step: '3', title: 'Développement', desc: 'Code itératif avec démos hebdomadaires' },
               { step: '4', title: 'Lancement', desc: 'Déploiement et formation utilisateurs' }
             ].map((phase, index) => (
               <div key={phase.step} className="relative">
@@ -126,7 +126,7 @@ const IASection = () => {
                   )}
                 </div>
                 <h4 className="text-white font-semibold mb-2">{phase.title}</h4>
-                <p className="text-gray-400 text-sm">{phase.desc}</p>
+                <p className="text-gray-300 text-sm">{phase.desc}</p>
               </div>
             ))}
           </div>
@@ -140,9 +140,9 @@ const IASection = () => {
           className="text-center"
         >
           <h3 className="text-2xl font-bold text-white mb-4">
-            Prêt à transformer votre idée en reality ?
+            Prêt à transformer votre idée en réalité ?
           </h3>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-gray-200 mb-8 max-w-2xl mx-auto">
             Discutons de votre projet lors d'un appel de 30 minutes. 
             Je vous présente une approche technique adaptée à vos contraintes et objectifs.
           </p>
@@ -156,10 +156,10 @@ const IASection = () => {
               size="xl"
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
             >
-              🚀 Réserver un appel gratuit
+              <span aria-hidden="true">🚀</span> Réserver un appel gratuit
             </CTAButton>
             
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-300">
               Pas d'engagement • Conseil personnalisé • 30 minutes
             </p>
           </div>
