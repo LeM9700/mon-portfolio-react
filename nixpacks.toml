@@ -1,0 +1,9 @@
+# nixpacks.toml — Override Nixpacks auto-detection for Railway
+# Prevents Nixpacks from injecting `prisma migrate deploy` at build time
+# (migrations run at startup via railway.json startCommand instead)
+
+[phases.build]
+cmds = ["npm install", "npx prisma generate", "npm run build"]
+
+[start]
+cmd = "npx prisma migrate deploy && node server.js"
