@@ -1,9 +1,15 @@
 # nixpacks.toml — Override Nixpacks auto-detection for Railway
 # Prevents Nixpacks from injecting `prisma migrate deploy` at build time
-# (migrations run at startup via railway.json startCommand instead)
+# (migrations run at startup via startCommand instead)
 
 [phases.build]
 cmds = ["npm install", "npx prisma generate", "npm run build"]
+
+# Replace the release phase with a no-op.
+# Empty cmds = [] is treated as "use defaults" by Nixpacks — must use a real command.
+# postgres.railway.internal is only reachable at runtime, not during Docker build.
+[phases.release]
+cmds = ["echo 'Migrations deferred to startup'"]
 
 [start]
 cmd = "npx prisma migrate deploy && node server.js"
