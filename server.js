@@ -189,15 +189,9 @@ const saveLeads = () => {
   }
 };
 
-// API Routes with security
+// API Routes
 app.post('/api/leads', rateLimitLeads, async (req, res) => {
   try {
-    // Security: check X-API-SECRET header
-    const secret = req.headers['x-api-secret'] || req.query.secret;
-    if (!process.env.API_SECRET || secret !== process.env.API_SECRET) {
-      return res.status(401).json({ error: 'Unauthorized - Invalid or missing API secret' });
-    }
-
     // Basic validation for email
     const { email } = req.body;
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) {
